@@ -1,11 +1,7 @@
 #include <iostream>
 
 namespace bfprt {
-
-    template<class Iter>
-    using DerefType = decltype(*std::declval<Iter>());
-
-    template<class Iter, class Comp = std::less<DerefType<Iter>>>
+    template<class Iter, class Comp = std::less<>>
     inline Iter inplace_partition(Iter begin, Iter end, Iter pivot, Comp comp = {}) {
         auto i = begin, j = std::prev(end);
         std::swap(*pivot, *i);
@@ -20,7 +16,7 @@ namespace bfprt {
         return i;
     }
 
-    template<class Iter, class Comp = std::less<DerefType<Iter>>>
+    template<class Iter, class Comp = std::less<>>
     inline void insertion_sort(Iter begin, Iter end, Comp comp = {}) {
         for (auto i = begin + 1; i < end; ++i) {
             for (auto j = begin; j < i; ++j) {
@@ -36,10 +32,10 @@ namespace bfprt {
 
     static inline constexpr size_t GROUP_SIZE = 5;
 
-    template<class Iter, class Comp = std::less<DerefType<Iter>>>
+    template<class Iter, class Comp = std::less<>>
     inline Iter kth_element(Iter begin, Iter end, size_t index, Comp comp = {});
 
-    template<class Iter, class Comp = std::less<DerefType<Iter>>>
+    template<class Iter, class Comp = std::less<>>
     inline Iter median_of_median(Iter begin, Iter end, Comp comp = {}) {
         if (end - begin <= GROUP_SIZE) {
             insertion_sort(begin, end, comp);
